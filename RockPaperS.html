@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rock, Paper, Scissors!</title>
+</head>
+<body>
+
+<p>Make a choice to get started</p>
+
+<button id="rock">Rock</button>
+<button id="paper">Paper</button>
+<button id="scissors">Scissors</button>
+
+<p id='human'></p>
+<p id='computer'></p>
+
+<p id='results'></p>
+
+<div id="score"></div>
+
+<script type="text/javascript">
+
+document.querySelector('#rock').onclick = user;
+document.querySelector('#paper').onclick = user;
+document.querySelector('#scissors').onclick = user;
+
+let score = document.querySelector('#score');
+
+let human = document.querySelector('#human');
+let computer = document.querySelector('#computer');
+
+let results = document.querySelector('#results');
+
+let playerScore = 0;
+let computerScore = 0;
+
+function user() {
+	let playerChoice = this.id;
+	human.textContent = "User: " + playerChoice;
+
+let computerPlay = Math.random();
+	if (computerPlay < 0.34) {
+		computerPlay = 'rock';
+	} else if (computerPlay <= 0.67) {
+		computerPlay = 'paper';
+	} else {
+		computerPlay = 'scissors';
+	}
+
+computer.textContent = "Computer: " + computerPlay;
+results.textContent = playRound(playerChoice, computerPlay);
+
+function playRound(playerChoice, computerPlay) {
+	if (playerChoice === 'rock' && computerPlay === 'paper') {
+		++computerScore;
+		return "You lose! Paper beats Rock!";
+	} else if (playerChoice === 'paper' && computerPlay === 'rock') {
+		++playerScore;
+		return "Yay! Paper beats Rock!";
+	} else if (playerChoice === 'scissors' && computerPlay === 'rock') {
+		++computerScore;
+		return "You lose! Rock beats Scissors!!";						//The rules/outcome of the game.
+	} else if (playerChoice === "rock" && computerPlay === "scissors") {
+		++playerScore;
+		return "Yay! Rock beats Scissors!!";
+	} else if (playerChoice === "paper" && computerPlay === "scissors") {
+		++computerScore;
+		return "You lose! Scissors beats Paper";
+	} else if (playerChoice === "scissors" && computerPlay === "paper") {
+		++playerScore;
+		return "Yay! Scissors beats Paper!";
+	} else if (playerChoice === computerPlay) {
+		return "Its a tie!! Try again!";
+	} else {
+		return "Move not recognized! Try again.";
+	}
+}
+
+function game() {
+	score.textContent = 'Your score is ' + playerScore + '. ' + 'Computer score is ' + computerScore + '.';
+		if (playerScore === 5 || computerScore === 5) {
+			score.textContent = 'Game Over!';	// Score portion of the game
+		 	if (playerScore < computerScore) {
+				score.textContent = 'Too bad!! You lost! Try again!';
+		 	} else {
+			    score.textContent = 'Yay!! You beat the computer!!';
+			}
+		}
+}
+
+game();
+}
+
+</script>
+</body>
+</html>
